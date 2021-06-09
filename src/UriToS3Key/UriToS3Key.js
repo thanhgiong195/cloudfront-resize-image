@@ -12,7 +12,7 @@ const UriToS3Key = event => {
 
   if (!width || isNaN(parseInt(width, 10))) return request
 
-  const [,prefix, imageName, prevExtension] = uri.match(/(.*)\/(.*)\.(\w*)/)
+  const [, prefix, imageName, prevExtension] = uri.match(/(.*)\/(.*)\.(\w*)/)
   const acceptHeader = Array.isArray(headers.accept)
     ? headers.accept[0].value
     : ''
@@ -30,7 +30,7 @@ const UriToS3Key = event => {
   request.querystring = [
     `nextExtension=${nextExtension}`,
     `height=${height}`,
-    `sourceImage=${prefix}${imageName}.${prevExtension}`,
+    `sourceImage=${prefix}/${imageName}.${prevExtension}`,
     `width=${width}`
   ].join('&')
 

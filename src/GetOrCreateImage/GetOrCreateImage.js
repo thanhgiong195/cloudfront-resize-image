@@ -36,6 +36,8 @@ const GetOrCreateImage = async event => {
 
   if (!width) return response
 
+  if (sourceImage[0] == '/') sourceImage = sourceImage.substring(1);
+
   return S3.getObject({ Bucket: bucket, Key: sourceImage })
     .promise()
     .then(imageObj => {
@@ -51,7 +53,7 @@ const GetOrCreateImage = async event => {
           .catch(error => {
             throw new Error(`${errorMessage} ${error}`)
           })
-      } catch(err) {
+      } catch (err) {
         throw new Error(`${errorMessage} ${error}`)
       }
       return resizedImage
